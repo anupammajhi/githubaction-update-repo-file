@@ -1,0 +1,22 @@
+name: Update File
+description: Github Action step to update a file in repo using an ejs template
+inputs:
+  FILE_PATH:
+    description: Relative Path of file to update
+    required: true
+  STARTING_COMMENT:
+    description: The comment that marks from where in the file it should start writing
+    required: true
+  ENDING_COMMENT:
+    description: The comment that marks up to where in the file it should write
+    required: true
+  EJS_TEMPLATE_PATH:
+    description: EJS Template to use for the content to be updated
+    required: true
+  TEMPLATE_INPUT_JSON:
+    description: JSON of inputs to be used to fill the template variables
+    required: true
+runs:
+  using: 'node20'
+  main: dist/index.js
+

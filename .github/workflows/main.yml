@@ -1,0 +1,24 @@
+name: My Test Workflow
+
+on: workflow_dispatch
+
+jobs:
+  my_test_customaction:
+    runs-on: ubuntu-latest
+    name: My test Custom Action
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Update File
+        id: update_file
+        # uses: anupammajhi/githubaction-update-repo-file@v0.0.1
+        uses: "./"
+        with:
+          FILE_PATH: "blogs.html"
+          STARTING_COMMENT: "<!-- BLOG_AUTO_START -->"
+          ENDING_COMMENT: "<!-- BLOG_AUTO_END -->"
+          EJS_TEMPLATE_PATH: ".github/workflows/testTemplate.ejs"
+          TEMPLATE_INPUT_JSON: '[{"id":"655df1710161753b0813c56d","title":"WINDOWS: Red Hat (RHEL9) with WSL2","subtitle":null,"brief":"While trying to get Red Hat (RHEL9) installed in my WSL (Windows Subsystem for Linux) within my Windows 11 laptop, I stumbled upon the same hurdle I did for installing the older RHEL8. The list of available distros published by Microsoft still does n...","publishedAt":"2022-06-11T18:30:00.000Z","tags":[{"name":"Linux","slug":"linux"},{"name":"WSL","slug":"wsl"},{"name":"redhat","slug":"redhat"},{"name":"RHEL9","slug":"rhel9"},{"name":"Windows","slug":"windows"},{"name":"Docker","slug":"docker"},{"name":"distro","slug":"distro"}],"url":"https://anupammajhi.hashnode.dev/windows-red-hat-rhel9-with-wsl2","coverImage":{"url":"https://cdn.hashnode.com/res/hashnode/image/upload/v1700655789491/a719157b-6562-4ee5-8471-de63cb459395.png"},"readTimeInMinutes":10,"views":8,"series":null},{"id":"655b84c3b5b672925886a052","title":"LINUX: \"zsh\" Theme I use","subtitle":null,"brief":"While trying setup RHEL with WSL 2, I stumbled upon this very helpful blog https://wsl.dev/mobyrhel8/\nWhile doing the setup, I found this zsh theme very nice, and I have been using it since then. The above mentioned blog already has the steps, but it...","publishedAt":"2021-03-23T18:30:00.000Z","tags":[{"name":"zsh","slug":"zsh"},{"name":"theme","slug":"theme"},{"name":"Linux","slug":"linux"},{"name":"shell","slug":"shell"},{"name":"redhat","slug":"redhat"}],"url":"https://anupammajhi.hashnode.dev/linux-zsh-theme-i-use","coverImage":{"url":"https://cdn.hashnode.com/res/hashnode/image/upload/v1700496493427/e755b6f5-25be-4e60-9b7d-28b558ba7f90.png"},"readTimeInMinutes":2,"views":7,"series":null},{"id":"64ea7d457a9fd3a318f69f7b","title":"WINDOWS: Change Ubuntu hostname running on WSL","subtitle":null,"brief":"If you want to change the Ubuntu hostname running on WSL, you might have already tried updating the /etc/hostname file, only to realize that after a reboot, the host name changes back to the original hostname.\nYou also might have already figured that...","publishedAt":"2021-03-14T22:55:45.471Z","tags":[{"name":"WSL","slug":"wsl"},{"name":"Ubuntu","slug":"ubuntu"},{"name":"Windows","slug":"windows"},{"name":"hostname","slug":"hostname"},{"name":"Linux","slug":"linux"}],"url":"https://anupammajhi.hashnode.dev/change-ubuntu-hostname-running-on-wsl","coverImage":{"url":"https://cdn.hashnode.com/res/hashnode/image/upload/v1700656038404/d616b0a2-0b7f-46c3-9a38-1f73889118da.png"},"readTimeInMinutes":3,"views":24,"series":null}]'
+      - name: Get Output
+        id: getoutput
+        run: echo 'Output - ${{ steps.update_file.outputs.result }}'

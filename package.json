@@ -1,0 +1,32 @@
+{
+    "name": "githubaction-update-repo-file",
+    "version": "1.0.0",
+    "description": "Github Action step to update a file in repo using an ejs template",
+    "author": "Anupam Majhi",
+    "license": "MIT",
+    "homepage": "https://github.com/anupammajhi/githubaction-update-repo-file#readme",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/anupammajhi/githubaction-update-repo-file.git"
+    },
+    "bugs": {
+      "url": "https://github.com/anupammajhi/githubaction-update-repo-file/issues"
+    },
+    "keywords": [
+      "hashnode",
+      "github-action",
+      "action",
+      "update file",
+      "commit",
+      "github actions"
+    ],
+    "main": "src/index.js",
+    "scripts": {
+      "build": "ncc build src/index.js --license licenses.txt"
+    },
+    "dependencies": {
+      "ejs": "^3.1.9",
+      "@vercel/ncc": "^0.38.1"
+    }
+  }
+  
