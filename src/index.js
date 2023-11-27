@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 const fs = require('fs')
 const { exec } = require('child_process')
 const path = require('path')
@@ -31,8 +32,8 @@ async function replaceSelectedText(fileOptions){
         commitMessage: `Update file ${path.basename(filePath)}`
     }
 
-    console.log(fs.readFileSync(filePath, 'utf-8')) // For running locally
-    // await commitFile(commitOptions) // For running in prod
+    // console.log(fs.readFileSync(filePath, 'utf-8')) // For running locally
+    await commitFile(commitOptions) // For running in prod
 
 }
 
@@ -82,20 +83,20 @@ async function main(){
     
     let ejsTemplate
     try {
-        ejsTemplate =  fs.readFileSync(process.env.EJS_TEMPLATE_PATH, 'utf-8')
+        ejsTemplate =  fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/${core.getInput('EJS_TEMPLATE_PATH')}`, 'utf-8')
     }
     catch(e) {
         console.error(e)
     }
 
-    const jsonData = JSON.parse(process.env.TEMPLATE_INPUT_JSON)
+    const jsonData = JSON.parse(core.getInput('TEMPLATE_INPUT_JSON'))
     const textToFill = ejs.render(ejsTemplate, { jsonData })
 
     const fileOptions = {
-        filePath: `${process.env.GITHUB_WORKSPACE}/${process.env.FILE_PATH}`,
+        filePath: `${process.env.GITHUB_WORKSPACE}/${core.getInput('FILE_PATH')}`,
         textToFill: textToFill,
-        startComment: process.env.STARTING_COMMENT,
-        endingComment: process.env.ENDING_COMMENT
+        startComment: core.getInput('STARTING_COMMENT'),
+        endingComment: core.getInput('ENDING_COMMENT')
     }
     
     await replaceSelectedText(fileOptions)
