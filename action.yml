@@ -1,4 +1,4 @@
-name: Update File in Repository
+name: Update File in Repository with EJS
 description: Github Action step to update a file in repo using an ejs template
 inputs:
   FILE_PATH:
