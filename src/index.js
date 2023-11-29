@@ -62,7 +62,7 @@ async function commitFile(options){
         return
     }
     
-    if(changes.trim()){
+    if(changes && changes.trim()){
         console.log(`Found changes in file ${filePath}`)
         console.log(changes)
         await runExec(`git config --global 'user.name' 'Github Action Update File'`)
