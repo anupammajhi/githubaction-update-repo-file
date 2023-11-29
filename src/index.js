@@ -80,7 +80,7 @@ async function commitFile(options){
 }
 
 async function runExec(command){
-    const execPromise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
             if(error){
                 console.error(`Error: ${error}`)
@@ -94,8 +94,6 @@ async function runExec(command){
             resolve(stdout)
         })
     })
-
-    await execPromise
 }
 
 async function main(){
