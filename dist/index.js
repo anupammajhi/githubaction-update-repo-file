@@ -27877,13 +27877,16 @@ async function commitFile(options){
     let changes
 
     try{
-        changes = await runExec(`git diff -- ${filePath}`)
+        changes = await runExec(`git diff -- "${filePath}"`)
+        console.log(`Value of variable 'changes': ${changes}`)
+        console.log(`Length of variable 'changes': ${changes.length}`)
     }
-    catch{
+    catch(e){
+        console.error(e)
         return
     }
     
-    if(changes && changes.trim()){
+    if(changes && changes.trim().length > 0){
         console.log(`Found changes in file ${filePath}`)
         console.log(changes)
         await runExec(`git config --global 'user.name' 'Github Action Update File'`)
