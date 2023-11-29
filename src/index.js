@@ -53,11 +53,27 @@ function fillContent(existingFileContent, fileOptions){
 
 async function commitFile(options){
     const { filePath, commitMessage } = options
+    let changes
 
-    await runExec(`git config --global 'user.name' 'Github Action Update File'`)
-    await runExec(`git add ${filePath}`)
-    await runExec(`git commit -m "${commitMessage}"`)
-    await runExec(`git push`)
+    try{
+        changes = await runExec(`git diff -- ${filePath}`)
+    }
+    catch{
+        return
+    }
+    
+    if(changes.trim()){
+        console.log(`Found changes in file ${filePath}`)
+        console.log(changes)
+        await runExec(`git config --global 'user.name' 'Github Action Update File'`)
+        await runExec(`git add ${filePath}`)
+        await runExec(`git commit -m "${commitMessage}"`)
+        await runExec(`git push`)
+    }
+    else{
+        console.log(`No changes found in file ${filePath}`)
+    }
+    
 }
 
 async function runExec(command){
