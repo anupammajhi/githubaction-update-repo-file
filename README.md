@@ -80,7 +80,7 @@ jobs:
 
     - name: Update File
       id: update_file
-      uses: anupammajhi/githubaction-update-repo-file@v1.0.0
+      uses: anupammajhi/githubaction-update-repo-file@v1.0.1
       with:
         FILE_PATH: "README.md"
         STARTING_COMMENT: "<!-- CONTENT_AUTO_START -->"
