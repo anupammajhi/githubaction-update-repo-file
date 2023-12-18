@@ -66,6 +66,7 @@ async function commitFile(options){
     if(changes && changes.trim().length > 0){
         console.log(`Found changes in file ${filePath}`)
         await runExec(`git config --global 'user.name' 'Github Action Update File'`)
+        await runExec(`git config --global 'user.email' 'action@github.com'`)
         await runExec(`git add ${filePath}`)
         await runExec(`git commit -m "${commitMessage}"`)
         await runExec(`git push`)
